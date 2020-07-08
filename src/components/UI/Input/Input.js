@@ -9,7 +9,7 @@ const input = (props) => {
     if(props.invalid && props.shouldValidate && props.touched){
         inputClasses.push(classes.Invalid);
     }
-    //Comprobar el tipo de input 
+    //Check input type
     switch(props.elementType){
         case ('input'):
             inputElement = <input 

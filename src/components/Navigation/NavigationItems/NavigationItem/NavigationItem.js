@@ -6,7 +6,8 @@ const navigationItem = (props) => (
     <li className={classes.NavigationItem}>
         <NavLink
             to={props.link}
-            //exact Aplica a todos los nav links. Si solo queremos que aplique a uno concreto hay que pasarlo
+            //exact applies to all nav links.
+            //If we only want to apply to any in particular we have to pass it
             exact={props.exact}
             activeClassName={classes.active}>{props.children}</NavLink>
     </li>

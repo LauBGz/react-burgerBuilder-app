@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class BurgerIngredient extends Component {
     render() {
-        let ingredient = null; //Inicialmente no renderizamos nada
+        let ingredient = null; //We don't render anything at first
 
         switch (this.props.type) {
             case ('bread-bottom'): 
