@@ -26,10 +26,10 @@ export const purchaseBurgerStart = () => {
 };
 
 //Async
-export const purchaseBurger = (orderData) => {
+export const purchaseBurger = (token, orderData) => {
     return dispatch => {
         dispatch(purchaseBurgerStart());
-        axios.post("/orders.json", orderData)
+        axios.post('/orders.json?auth=' + token, orderData)
         .then(response => {
             dispatch(purchaseBurgerSuccess(response.data.name, orderData));
         })
@@ -66,10 +66,13 @@ export const fetchOrdersFail = (error) => {
 };
 
 //Async
-export const fetchOrders = () => {
+export const fetchOrders = (token, userId) => {
     return dispatch => {
         dispatch(fetchOrdersStart());
-        axios.get('/orders.json')
+        const queryParams = `?auth=${token}&orderBy="userId"&equalTo="${userId}"`;
+        //&orderBy="userId"&equalTo is a query param from firebase
+        axios.get('/orders.json' + queryParams)
+        //It could be also used getState
         .then(response => {
             const fetchedOrders = [];
             for (let key in response.data) {
