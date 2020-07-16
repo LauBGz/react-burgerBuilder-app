@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
+import asyncComponent from './hoc/asyncComponent/asyncComponent';
 
 import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
-import Checkout from './containers/Checkout/Checkout';
-import Orders from './containers/Orders/Orders';
-import Auth from './containers/Auth/Auth';
+// import Checkout from './containers/Checkout/Checkout';
+// import Orders from './containers/Orders/Orders';
+// import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';
-import * as actions from './store/actions/index'
+import * as actions from './store/actions/index';
+
+//Lazy loading: great improvement and one important step before we actually build our application for production
+//though lazy loading is not always better. If the lazily loaded modules are very small, we might not really gain
+//anything from adding lazy loading.
+
+const asyncCheckout = asyncComponent(() => {
+    return import('./containers/Checkout/Checkout');
+});
+
+const asyncOrders = asyncComponent(() => {
+    return import('./containers/Orders/Orders');
+});
+
+const asyncAuth = asyncComponent(() => {
+    return import('./containers/Auth/Auth');
+});
 
 class App extends Component {
 //We should check if the user is logged in when the app loads so it's a good place to do it here
@@ -21,7 +38,7 @@ class App extends Component {
         //However, we must also prevent users from accessing data in the back end
         let routes = (
             <Switch>
-                <Route path="/auth" component={Auth} />
+                <Route path="/auth" component={asyncAuth} />
                 <Route path="/" exact component={BurgerBuilder} /> 
                   {/* If we don't use exact, the non-logged in user can access to /orders even though
                   they only see the home component (http://localhost:3000/orders doesnt change)*/}
@@ -32,10 +49,12 @@ class App extends Component {
         if(this.props.isAuthenticated){
             routes = (
                 <Switch>
-                    <Route path="/auth" component={Auth} /> 
-                    {/* We also need auth here in case users create a burger before sign in */}
-                    <Route path="/checkout" component={Checkout} />
-                    <Route path="/orders" component={Orders} />
+                    <Route path="/auth" component={asyncAuth} /> 
+                    {/* We also need auth here in case users create a burger before sign in. Otherwise,
+                     the code in the auth component which would redirect us correctly to the checkout page 
+                     will never be used. */}
+                    <Route path="/checkout" component={asyncCheckout} />
+                    <Route path="/orders" component={asyncOrders} />
                     <Route path="/logout" component={Logout} />
                     <Route path="/" exact component={BurgerBuilder} /> 
                     <Redirect to="/" />

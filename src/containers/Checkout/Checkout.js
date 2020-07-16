@@ -4,7 +4,6 @@ import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import ContactData from './ContactData/ContactData';
 
-
 class Checkout extends Component {
     //Introducing redux makes unnecessary to manage the state here
 

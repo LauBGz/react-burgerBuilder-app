@@ -15,7 +15,9 @@ const sideDrawer = (props) => {
     return(
         <Auxiliary>
             <Backdrop show={props.open} clicked={props.closed}/>
-            <div className={attachedClasses.join(' ')}>
+            <div className={attachedClasses.join(' ')} 
+                onClick={props.closed}>{/* onClick={props.closed} allows us to close de sidedrawer if 
+                we click in any part of it, including the nav links. */}
                 <div className={classes.Logo}>
                     <Logo/>
                 </div>
