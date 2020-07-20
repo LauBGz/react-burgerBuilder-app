@@ -10,10 +10,8 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
 import * as actions from '../../store/actions/index';
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
     state = {
-    //We could also manage purchasing in the reducer. In this case, we are doing it like this because it manages
-    //an UI element (modal).
         purchasing: false
     };
 
@@ -74,8 +72,6 @@ class BurgerBuilder extends Component {
                         disabled={disabledInfo}
                         price={this.props.price}
                         purchasable={this.updatePurchaseState(this.props.ings)}
-                        // Other option would be to change the var ingredients for this.props.ings
-                        //in the fuction updatePurchaseState 
                         ordered={this.purchaseHandler}
                         isAuth={this.props.isAuthenticated}
                     />

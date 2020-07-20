@@ -108,7 +108,7 @@ class ContactData extends Component {
 
         const order = {
             ingredients: this.props.ings,
-            price: this.props.price,//Price should be updated in the backend
+            price: this.props.price,
             orderData: formData,
             userId: this.props.userId
         };
@@ -117,11 +117,6 @@ class ContactData extends Component {
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
-        //Using utility function here
-        // this.state.orderForm[inputIdentifier] is the oldObject
-        // updatedProperties are the new values 
-        // then return{...oldObject, ...updatedProperties}
-
         const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier],
             {
                 value: event.target.value,
@@ -139,27 +134,6 @@ class ContactData extends Component {
             formIsValid = updatedOrderForm[inputIdentifier]["valid"] && formIsValid;
         }
         this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
-        // const updatedOrderForm = {
-        //     ...this.state.orderForm
-        // }
-
-        // const updatedFormElement = {
-        //     ...updatedOrderForm[inputIdentifier]
-        // }
-
-        // updatedFormElement.value = event.target.value;
-
-        // updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation)
-
-        // updatedFormElement.touched =  true;
-
-        // updatedOrderForm[inputIdentifier] = updatedFormElement;
-
-        // let formIsValid = true;
-        // for(let inputIdentifier in updatedOrderForm){
-        //     formIsValid = updatedOrderForm[inputIdentifier]["valid"] && formIsValid;
-        // }
-        // this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
     };
 
     render() {

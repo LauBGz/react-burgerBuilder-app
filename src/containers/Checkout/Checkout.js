@@ -5,8 +5,6 @@ import {connect} from 'react-redux';
 import ContactData from './ContactData/ContactData';
 
 class Checkout extends Component {
-    //Introducing redux makes unnecessary to manage the state here
-
     checkoutCancelledHandler = () => {
         this.props.history.goBack();
     };
@@ -47,5 +45,4 @@ const mapStateToProps = state => {
     }
 };
 
-//We may not need mapDispatchToProps if we are not dispatching anything in the container
 export default connect(mapStateToProps)(Checkout);

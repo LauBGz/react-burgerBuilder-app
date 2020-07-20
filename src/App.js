@@ -5,9 +5,6 @@ import asyncComponent from './hoc/asyncComponent/asyncComponent';
 
 import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
-// import Checkout from './containers/Checkout/Checkout';
-// import Orders from './containers/Orders/Orders';
-// import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';
 import * as actions from './store/actions/index';
 
@@ -40,8 +37,6 @@ class App extends Component {
             <Switch>
                 <Route path="/auth" component={asyncAuth} />
                 <Route path="/" exact component={BurgerBuilder} /> 
-                  {/* If we don't use exact, the non-logged in user can access to /orders even though
-                  they only see the home component (http://localhost:3000/orders doesnt change)*/}
                 <Redirect to="/" />
             </Switch>
             );

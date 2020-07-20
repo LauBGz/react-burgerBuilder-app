@@ -7,14 +7,9 @@ import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Auth.css';
-// import * as actions from '../../store/actions/index';
-//tb vale sin index
 import * as actions from '../../store/actions';
 
 class Auth extends Component {
-    //We the state in the container, not through redux because we are only talking about the local state, 
-    //the values the user entered into their form inputs and so on and it makes more sense to use them 
-    //and manage them inside the container with react's state property.
     state = {
         controls: {            
             email: {
@@ -68,26 +63,6 @@ class Auth extends Component {
                 touched: true
             })
         })
-        // const updatedControls = {
-        //     //Copy of the state controls
-        //     ...this.state.controls,
-        //     //Then overwrite some of the properties, that is, name or password
-        //     [controlName]: {
-        //         //Copy of the control state
-        //         ...this.state.controls[controlName],
-        //         value: event.target.value,
-        //         //checkValidity gets 2 params (value, rules)
-        //         valid: this.checkValidity(
-        //             event.target.value, //value
-        //             this.state.controls[controlName].validation, //rule --> required, mingLength, etc.
-        //                 // validation: {
-        //                 //     required: true,
-        //                 //     minLength: 6
-        //                 // },
-        //         ),
-        //         touched: true
-        //     }
-        // };
         this.setState({controls: updatedControls});
     };
 
@@ -141,7 +116,7 @@ class Auth extends Component {
         if(this.props.error){
             errorMessage = (
                 <p>{this.props.error.message}</p>
-                //.message es una propiedad de firebase
+                //.message is a firebase property
             );
         };
 
@@ -163,7 +138,7 @@ class Auth extends Component {
                 </form>
                 <Button 
                     clicked={this.switchAuthModeHandler}
-                    btnType="Danger">SIWTCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}</Button>
+                    btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}</Button>
             </div>
         )
     };

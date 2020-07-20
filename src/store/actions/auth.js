@@ -67,11 +67,6 @@ export const auth = (email, password, isSignup) => {
             localStorage.setItem('expirationDate', expirationDate);
             localStorage.setItem('userId', response.data.localId)
             dispatch(authSuccess(response.data.idToken, response.data.localId));
-            //We got back information about how long the token is valid. So 3600 seconds. That's one hour.
-            //Then the I.D. token itself does long cryptic string which can be decrypted to a javascript object 
-            //if we want to. We also have a "refresh token" which is used to get a new I.D. token because 
-            //the I.D. token expires relatively fast after one hour for security reasons but we can generate 
-            //a new one with the refresh token but only you and your application can do that of course.
             dispatch(checkAuthTimeout(response.data.expiresIn))
             //expiresIn is a property from firebase in seconds
         })
@@ -95,7 +90,7 @@ export const authCheckState = () => {
         if(!token){
             dispatch(logout());
         } else {
-            //Convertimos la string que obtenemos a fecha
+            //We turn the string into a date
             const expirationDate = new Date(localStorage.getItem('expirationDate'));
             if(expirationDate <= new Date()){
                 dispatch(logout());
